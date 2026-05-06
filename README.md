@@ -40,10 +40,10 @@ Controller -> UseCase -> Port -> Adapter -> Database / External systems
 
 ### Layers:
 
-- **Domain** -> Business logic (Order, OrderStatus, Ports)
-- **Application** -> Use cases (Create, Get, Update)
-- **Infrastructure** -> JPA, Redis adapters
-- **EntryPoints** -> REST Controllers
+- **Domain** - Business logic (Order, OrderStatus, Ports)
+- **Application** - Use cases (Create, Get, Update)
+- **Infrastructure** - JPA, Redis adapters
+- **EntryPoints** - REST Controllers
 
 ---
 
@@ -60,16 +60,7 @@ Controller -> UseCase -> Port -> Adapter -> Database / External systems
 
 ## Example Flow
 
-POST /orders
-    ↓
-DTO validation
-    ↓
-UseCase execution
-    ↓
-Persistence (MySQL)
-    ↓
-Response mapping
-
+POST /orders  >  DTO validation  >  UseCase execution  >  Persistence (MySQL)  >  Response mapping
 
 ---
 
@@ -77,9 +68,9 @@ Response mapping
 
 Implements **Cache Aside Pattern**:
 
-- First read → DB → stored in Redis
-- Subsequent reads → Redis (faster)
-- Updates → cache invalidation
+- First read > DB > stored in Redis
+- Subsequent reads > Redis (faster)
+- Updates > cache invalidation
 
 ---
 
