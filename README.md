@@ -77,7 +77,7 @@ Implements **Cache Aside Pattern**:
 ## Getting Started
 
 ### 1. Clone the repository
-    git clone https://github.com/tu-usuario/order-service.git
+    git clone https://github.com/LuisMorales33/order-service.git
     cd order-service
 
 ### 2. Run MySQL (Docker)
