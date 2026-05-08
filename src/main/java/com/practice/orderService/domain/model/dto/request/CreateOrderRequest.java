@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 public record CreateOrderRequest(
 
     @NotNull(message = "userId is required")
-    Long userId,
+    String userId,
 
     @NotNull(message = "totalPrice is required")
     @Min(value = 1, message = "totalPrice must be greater than 0")
