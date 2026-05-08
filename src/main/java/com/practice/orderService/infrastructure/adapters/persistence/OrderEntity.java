@@ -1,5 +1,6 @@
 package com.practice.orderService.infrastructure.adapters.persistence;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import com.practice.orderService.domain.model.OrderStatus;
@@ -18,7 +19,9 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "orders")
-public class OrderEntity {
+public class OrderEntity implements Serializable{
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

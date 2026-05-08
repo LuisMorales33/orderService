@@ -28,8 +28,25 @@ server:
   servlet:
     context-path: /api/orders
 
+data:
+  redis:
+    host: localhost
+    port: 6379
+
 management:
+  tracing:
+    sampling:
+      probability: 1.0
+
   otlp:
-    metrics:
-      export:
-        enabled: false
+    tracing:
+      endpoint: http://localhost:4318/v1/traces
+
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:},traceId=%X{traceId},spanId=%X{spanId}]"
