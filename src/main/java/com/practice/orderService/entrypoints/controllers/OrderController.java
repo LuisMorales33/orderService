@@ -13,6 +13,7 @@ import com.practice.orderService.domain.model.mapper.OrderMapper;
 import com.practice.orderService.domain.model.mapper.ResponseMapper;
 import com.practice.orderService.utils.Constants;
 
+import io.micrometer.observation.annotation.Observed;
 import jakarta.validation.Valid;
 
 import java.util.List;
@@ -42,15 +43,13 @@ public class OrderController {
         this.responseMapper = responseMapper;
     }
 
+    @Observed(name = "controller.create-order")
     @PostMapping
     public ResponseEntity<Response<OrderDTO>> createOrder(
         @Valid @RequestBody CreateOrderRequest request
     ) {
 
-        Order order = createOrderUseCase.execute(
-            request.userId().toString(),
-            request.totalPrice()
-        );
+        Order order = createOrderUseCase.execute(request);
 
         return responseMapper.created(
             OrderMapper.toDTO(order),
@@ -58,6 +57,7 @@ public class OrderController {
         );
     }
 
+    @Observed(name = "controller.get-all-orders")
     @GetMapping
     public ResponseEntity<Response<List<OrderDTO>>> getAllOrders() {
         return responseMapper.success(
@@ -68,7 +68,7 @@ public class OrderController {
         );
     }
     
-
+    @Observed(name = "controller.get-order-by-id")
     @GetMapping("/{id}")
     public ResponseEntity<Response<OrderDTO>> getOrderById(@Valid ReadOrderRequest request) throws Throwable 
         {
@@ -79,9 +79,10 @@ public class OrderController {
             OrderMapper.toDTO(order),
             Constants.ORDER_FOUND_SUCCESS
         );
-    }
+    }    
 
     @PutMapping("/{id}/status")
+    @Observed(name = "controller.update-order-status")
     public ResponseEntity<Response<OrderDTO>> updateStatus(
         @Valid @RequestBody UpdateOrderStatusRequest request
     ) {
